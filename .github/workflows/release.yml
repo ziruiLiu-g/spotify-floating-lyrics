@@ -95,7 +95,7 @@ jobs:
 
       - name: Build resolve Swift dependencies
         if: matrix.os == 'macos-12'
-        run: xcodebuild -resolvePackageDependencies -workspace ios/Runner.xcworkspace -scheme Runner -configuration Release
+        run: xcodebuild -resolvePackageDependencies -workspace macos/Runner.xcworkspace -scheme Runner -configuration Release
 
       - name: Flutter pub get
         run: |

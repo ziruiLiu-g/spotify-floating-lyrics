@@ -17,6 +17,8 @@ class LoginDao {
   static var token = "";
 
   static login() async {
+    _logger.d(Global.clientId);
+
     BaseRequest request;
     request = SpotifyLoginRequest();
 

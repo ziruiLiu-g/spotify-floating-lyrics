@@ -86,5 +86,7 @@ class Global {
 
   static LyricsModel? currentLyricsModel;
 
-  static const mxmKey = "79af0309928ad327f94eb8e1fc08bda1";
+  static late String clientId;
+
+  static late String clientSecret;
 }

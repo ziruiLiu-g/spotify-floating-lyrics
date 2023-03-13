@@ -1,3 +1,4 @@
+import '../../../util/global.dart';
 import 'base_request.dart';
 
 class SpotifyLoginRequest extends BaseRequest {
@@ -21,7 +22,7 @@ class SpotifyLoginRequest extends BaseRequest {
         'user-read-recently-played';
 
     add("response_type", "code")
-      .add("client_id", "946b6d4e6deb44eaa99206097aa271c2")
+      .add("client_id", Global.clientId)
       .add("scope", scope)
       .add("state", "1234567891011124")
       .add("redirect_uri", 'http://localhost:8888/');

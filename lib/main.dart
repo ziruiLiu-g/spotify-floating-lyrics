@@ -1,10 +1,13 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:math';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:spotify_desk_lyric/util/global.dart';
+import 'package:spotify_desk_lyric/util/local_storage.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'controller/lyrics_controller.dart';
@@ -25,8 +28,8 @@ void main() async {
       runApp(MyApp());
       doWhenWindowReady(() {
         final win = appWindow;
-        const initialSize = Size(650, 150);
-        win.minSize = initialSize;
+        const initialSize = Size(650, 250);
+        win.minSize = Size(650, 150);
         win.size = initialSize;
         win.alignment = Alignment.center;
         win.title = "Custom window with Flutter";
@@ -81,6 +84,8 @@ class _RightSideState extends State<RightSide> {
   late ItemScrollController _scrollController;
   late ItemPositionsListener itemPositionsListener;
   late PlayerController playerController;
+  final clientidController = TextEditingController(text: LocalStorage.getInstance().get("clientId") == null ? "" : LocalStorage.getInstance().get("clientId") as String);
+  final clientsecretController = TextEditingController(text: LocalStorage.getInstance().get("clientSecret") == null ? "" :  LocalStorage.getInstance().get("clientSecret") as String);
 
   late String _status;
   late Timer _timer;
@@ -93,7 +98,60 @@ class _RightSideState extends State<RightSide> {
     playerController = Get.find<PlayerController>();
 
     startServer();
-    _login();
+
+    Future.delayed(Duration.zero, () {
+      _showCupertinoAlertDialog(
+          context: context,
+          title: "",
+          content: "Please Enter Your SpotifyApi Client ID and Secret.",
+          sureText: "Confirm");
+      // _login();
+    });
+  }
+
+  void _showCupertinoAlertDialog(
+      {context,
+      required String title,
+      required String content,
+      required String sureText}) {
+    showDialog(
+      context: context,
+      builder: (cxt) {
+        return AlertDialog(
+          content: Column(
+            children: [
+              TextField(
+                controller: clientidController,
+                autofocus: true,
+                decoration: const InputDecoration(
+                  labelText: 'Client ID',
+                ),
+              ),
+              TextField(
+                controller: clientsecretController,
+                autofocus: true,
+                decoration: const InputDecoration(
+                  labelText: 'Client Secret',
+                ),
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text("确定"),
+              onPressed: () {
+                Global.clientId = clientidController.text;
+                Global.clientSecret = clientsecretController.text;
+                LocalStorage.getInstance().setString("clientId", clientidController.text);
+                LocalStorage.getInstance().setString("clientSecret", clientsecretController.text);
+                _login();
+                Navigator.of(context).pop("确定");
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Future<void> startServer() async {
@@ -176,7 +234,7 @@ class _RightSideState extends State<RightSide> {
               margin: EdgeInsets.symmetric(vertical: 5),
               child: Text(
                 textAlign: TextAlign.center,
-                '${(_lyricsController.lyrics[index == -1 ? 0 : index] as MapEntry).value}',
+                '${(_lyricsController.lyrics[index == -1 ? 0 : min(index, _lyricsController.lyrics.length)] as MapEntry).value}',
                 maxLines: 1,
                 style: _lyricsController.currentIndex == index
                     ? const TextStyle(
@@ -266,7 +324,7 @@ class _RightSideState extends State<RightSide> {
                       Container(
                         child: createLyricsView(),
                         height: constraints.maxHeight,
-                        width: constraints.maxWidth * 3 / 4,
+                        width: constraints.maxWidth * 3 / 4 - 50,
                       ),
                     ],
                   ),

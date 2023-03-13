@@ -15,15 +15,6 @@ class LyricsDao {
   static final _logger = Logger(printer: PrettyPrinter(methodCount: 0));
   static final _lyricsController = Get.find<LyricsController>();
 
-  static getTrack(String trackName, String artist) async {
-    BaseRequest request;
-    request = SpotifyLyricsRequest("track.search?q_track=$trackName&q_artist=$artist&f_has_lyrics=1&apikey=${Global.mxmKey}");
-
-    var result = await HiNet.getInstace().fire(request);
-
-    _logger.d(result);
-  }
-
   static getLyric(String trackId) async {
     BaseRequest request;
     request = SpotifyHeroKuAppRequest();

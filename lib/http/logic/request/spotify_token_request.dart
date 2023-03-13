@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:spotify_desk_lyric/util/global.dart';
 
 import 'base_request.dart';
 
@@ -16,7 +17,7 @@ class SpotifyTokenRequest extends BaseRequest {
         "Keep-Alive": "timeout=8",
         'Content-Type': 'application/x-www-form-urlencoded',
         'Authorization':
-            'Basic ${base64.encode(utf8.encode('946b6d4e6deb44eaa99206097aa271c2:683d948dad9e4407be9344c36f848017'))}'
+            'Basic ${base64.encode(utf8.encode('${Global.clientId}:${Global.clientSecret}'))}'
       }
     );
 

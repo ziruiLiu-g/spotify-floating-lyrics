@@ -81,8 +81,8 @@ class LoginDao {
     Global.tokenInstance = TokenModel(
         result['access_token'],
         result['token_type'],
-        result['expires_in'],
-        result['refresh_token'],
+        Global.tokenInstance.expiresIn,
+        Global.tokenInstance.refreshToken,
         result['scope']
     );
   }

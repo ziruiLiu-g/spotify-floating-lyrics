@@ -87,6 +87,8 @@ class _RightSideState extends State<RightSide> {
   final clientidController = TextEditingController(text: LocalStorage.getInstance().get("clientId") == null ? "" : LocalStorage.getInstance().get("clientId") as String);
   final clientsecretController = TextEditingController(text: LocalStorage.getInstance().get("clientSecret") == null ? "" :  LocalStorage.getInstance().get("clientSecret") as String);
 
+  var alwaysOnTop = true;
+
   late String _status;
   late Timer _timer;
 
@@ -303,7 +305,7 @@ class _RightSideState extends State<RightSide> {
                                 Container(
                                   // color: Colors.red,
                                   height: constraints.maxHeight * 3 / 5,
-                                  width: constraints.maxWidth * 1 / 4,
+                                  width: constraints.maxWidth * 1 / 5,
                                   child: Image.network(playerController.img),
                                 ),
                                 constraints.maxHeight > 200
@@ -325,6 +327,20 @@ class _RightSideState extends State<RightSide> {
                         child: createLyricsView(),
                         height: constraints.maxHeight,
                         width: constraints.maxWidth * 3 / 4 - 50,
+                      ),
+                      IconButton(
+                        color: Colors.transparent,
+                        onPressed: () {
+                          setState(() {
+                            alwaysOnTop = !alwaysOnTop;
+                            windowManager.setAlwaysOnTop(alwaysOnTop);
+                          });
+                        },
+                        icon: Icon(
+                          Icons.lock,
+                          size: 15,
+                          color: alwaysOnTop ? Colors.white : Colors.grey,
+                        ),
                       ),
                     ],
                   ),

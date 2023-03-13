@@ -76,16 +76,17 @@ jobs:
       # 安装描述文件
       - name: Install the provisioning profile
         if: matrix.os == 'macos-12'
-        run: |
-          echo $PROVISIONING_CERTIFICATE_BASE64 | base64 -d -o $APP_DEV_PROVISION_PATH
-          app_dev_uuid=`grep UUID -A1 -a $APP_DEV_PROVISION_PATH | grep -io "[-A-F0-9]\{36\}"`
-          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          cp $APP_DEV_PROVISION_PATH ~/Library/MobileDevice/Provisioning\ Profiles/$app_dev_uuid.mobileprovision
-          ls ~/Library/MobileDevice/Provisioning\ Profiles
         env:
-          PROVISIONING_CERTIFICATE_BASE64: ${{ secrets.PROVISIONING_PROFILE_BASE64 }}
+          PROVISIONING_CERTIFICATE_BASE64: ${{ secrets.MOBILEPROVISION_BASE64 }}
+        run: |
+          PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
+          
+          echo -n "$PROVISIONING_CERTIFICATE_BASE64" | base64 --decode --output $PP_PATH
+          
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 
-            # 安装 Flutter
+      # 安装 Flutter
       - name: Flutter action
         uses: subosito/flutter-action@v2
         with:

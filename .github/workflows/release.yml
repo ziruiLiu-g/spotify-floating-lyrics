@@ -116,9 +116,10 @@ jobs:
         run: |
           cd macos && pod update && pod install && cd ..
           flutter build macos --release
-          APP_PATH=build/macos/Build/Products/Release/lyrics.app
+          APP_PATH=build/macos/Build/Products/Release/spotify_desk_lyric.app
           cp -a $APP_PATH ./build
           cd build && zip -qroy macos/lyrics_${{ steps.get_version.outputs.version }}_macos.zip lyrics.app
+
       - name: Build windows
         if: matrix.target == 'windows'
         run: |

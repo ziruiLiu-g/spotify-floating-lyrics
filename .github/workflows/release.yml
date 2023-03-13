@@ -101,8 +101,8 @@ jobs:
         run: |
           git config --global core.longpaths true
           flutter pub get
-          flutter pub run build_runner build --delete-conflicting-outputs
-          flutter pub run intl_utils:generate
+#          flutter pub run build_runner build --delete-conflicting-outputs
+#          flutter pub run intl_utils:generate
       # Get app version
       - name: Get app version
         id: get_version

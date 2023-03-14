@@ -21,8 +21,6 @@ void main() async {
 
   await windowManager.ensureInitialized();
 
-  windowManager.setAlwaysOnTop(true);
-
   Global.init().then(
     (e) {
       runApp(MyApp());
@@ -87,7 +85,7 @@ class _RightSideState extends State<RightSide> {
   final clientidController = TextEditingController(text: LocalStorage.getInstance().get("clientId") == null ? "" : LocalStorage.getInstance().get("clientId") as String);
   final clientsecretController = TextEditingController(text: LocalStorage.getInstance().get("clientSecret") == null ? "" :  LocalStorage.getInstance().get("clientSecret") as String);
 
-  var alwaysOnTop = true;
+  var alwaysOnTop = false;
 
   late String _status;
   late Timer _timer;

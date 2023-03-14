@@ -10,7 +10,7 @@ This is a simple floating lyrics client for Spotify.
 
 ## Getting Started
 
-Step 1. Login to spotify developer dashboard with your OWN accound.
+Step 1. Login to spotify developer dashboard with your OWN accound. https://developer.spotify.com/dashboard/
 
 Step 2. Create an App in the dashboard. You can choose any name you want for the app name.
 

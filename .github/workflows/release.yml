@@ -154,7 +154,7 @@ jobs:
         with:
 #          artifacts: "/tmp/artifacts/release-mac/*.zip,/tmp/artifacts/release-windows/*.zip"
           artifacts: "/tmp/artifacts/release-mac/*.zip"
-          token: ${{ secrets.RELEASE_TOKEN }}
+          token: ${{ github.token }}
           allowUpdates: true
           artifactErrorsFailBuild: true
           replacesArtifacts: true

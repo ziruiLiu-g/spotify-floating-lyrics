@@ -118,7 +118,7 @@ jobs:
           flutter build macos --release
           APP_PATH=build/macos/Build/Products/Release/spotify_desk_lyric.app
           cp -a $APP_PATH ./build
-          cd build && zip -qroy macos/lyrics_${{ steps.get_version.outputs.version }}_macos.zip lyrics.app
+          cd build && zip -qroy macos/lyrics_${{ steps.get_version.outputs.version }}_macos.zip spotify_desk_lyric.app
 
       - name: Build windows
         if: matrix.target == 'windows'

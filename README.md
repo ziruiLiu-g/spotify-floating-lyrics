@@ -6,6 +6,7 @@ This is a simple floating lyrics client for Spotify.
 * If you are interested in the package and want to customize it, feel free to raise PRs
 * I am not going to purchase any Spotify Api Quota, so you might need to create your own spotify api client.
 * Please Read the instruction before you use.
+* This is a project for fun, so you will find out the code is pretty disorganized lol.
 
 
 ## Getting Started

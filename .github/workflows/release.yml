@@ -115,6 +115,7 @@ jobs:
         if: matrix.target == 'macos'
         run: |
           cd macos && pod update && pod install && cd ..
+          flutter pub run flutter_launcher_icons
           flutter build macos --release
           APP_PATH=build/macos/Build/Products/Release/spotify_desk_lyric.app
           cp -a $APP_PATH ./build

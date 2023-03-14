@@ -27,4 +27,8 @@ Step 5. If everything is going well, a dialog will show up and redirect you to s
 
 Step 6. Enjoy!
 
-**The Lock icon at the right side of the App can be used to set the app always on Top on the desktop. If you want to enter full screen mode on Macos, the lock should not be activated.**
+
+
+***The Lock icon at the right side of the App can be used to set the app always on Top on the desktop. If you want to enter full screen mode on Macos, the lock should not be activated.***
+
+***No need to worry about if you need to do all the steps everytime you run the app, the ClientId and ClientSecret and Spotify Login Session will be stored***

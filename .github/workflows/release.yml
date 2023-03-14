@@ -150,10 +150,10 @@ jobs:
       - run: ls -R /tmp/artifacts
 
       - name: Upload to release
-        uses: ncipollo/release-action@v1.5.0
+        uses: ncipollo/release-action@v1
         with:
-#          artifacts: "/tmp/artifacts/release-mac/*.zip,/tmp/artifacts/release-windows/*.zip"
-          artifacts: "/tmp/artifacts/release-mac/*.zip"
+          artifact: "/tmp/artifacts/release-mac/*.zip"
+          tag: ${{ github.ref_name }}
           token: ${{ github.token }}
           allowUpdates: true
           artifactErrorsFailBuild: true

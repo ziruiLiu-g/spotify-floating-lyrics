@@ -23,12 +23,12 @@ jobs:
             flutter_channel: 'stable'
             artifact_name: release-mac
             artifact_path: build/macos/*.zip
-#          - target: windows
-#            os: windows-latest
-#            flutter_version: '3.7'
-#            flutter_channel: 'stable'
-#            artifact_name: release-windows
-#            artifact_path: build/windows/*.zip
+          - target: windows
+            os: windows-latest
+            flutter_version: '3.7'
+            flutter_channel: 'stable'
+            artifact_name: release-windows
+            artifact_path: build/windows/*.zip
 
 
     runs-on: ${{ matrix.os }}
@@ -124,13 +124,14 @@ jobs:
       - name: Build windows
         if: matrix.target == 'windows'
         run: |
+          flutter pub run flutter_launcher_icons
           flutter build windows --release
-          $DestDir = "build\windows\FEhViewer"
+          $DestDir = "build\windows\lyrics"
           $SrcDir = "build\windows\runner\Release"
           New-Item -Path $DestDir -ItemType Directory
           Copy-Item $SrcDir\* -Recurse $DestDir
           Copy-Item -Filter *.dll -Path windows\* -Destination $DestDir -Force
-          Compress-Archive $DestDir build\windows\FEhViewer_${{ steps.get_version.outputs.version }}_windows.zip
+          Compress-Archive $DestDir build\windows\lyrics_${{ steps.get_version.outputs.version }}_windows.zip
 
       - name: Publish Artifacts
         uses: actions/upload-artifact@v3

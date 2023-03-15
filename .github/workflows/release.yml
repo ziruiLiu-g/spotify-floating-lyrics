@@ -154,7 +154,7 @@ jobs:
       - name: Upload to release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "/tmp/artifacts/release-mac/*.zip"
+          artifacts: "/tmp/artifacts/release-mac/*.zip,/tmp/artifacts/release-windows/*.zip"
           tag: ${{ github.ref_name }}
           token: ${{ secrets.RELEASE_TOKEN }}
           allowUpdates: true

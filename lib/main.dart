@@ -155,7 +155,7 @@ class _RightSideState extends State<RightSide> {
   }
 
   Future<void> startServer() async {
-    final server = await HttpServer.bind('127.0.0.1', 8888, shared: true);
+    final server = await HttpServer.bind('127.0.0.1', (Platform.isWindows || Platform.isLinux) ? 8889 : 8888, shared: true);
 
     server.listen((req) async {
       setState(() {
@@ -359,7 +359,7 @@ class _RightSideState extends State<RightSide> {
                             child: MoveWindow(),
                           ),
                         ),
-                        const WindowButtons()
+                        // const WindowButtons()
                       ],
                     ),
                   ),

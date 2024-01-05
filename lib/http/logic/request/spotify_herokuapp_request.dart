@@ -24,7 +24,7 @@ class SpotifyHeroKuAppRequest extends BaseRequest {
 
   @override
   String authority() {
-    return 'spotify-lyric-api.herokuapp.com';
+    return 'spotify-lyric-api-984e7b4face0.herokuapp.com';
   }
 
   @override

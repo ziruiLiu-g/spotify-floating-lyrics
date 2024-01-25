@@ -18,7 +18,6 @@ abstract class BaseRequest {
   String authority() {
     return "";
   }
-
   HttpMethod httpMethod();
 
   String path();

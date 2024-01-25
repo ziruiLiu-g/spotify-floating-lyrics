@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:spotify_desk_lyric/http/logic/dao/lyrics_token_dao.dart';
 import 'package:spotify_desk_lyric/util/global.dart';
 import 'package:spotify_desk_lyric/util/local_storage.dart';
 import 'package:window_manager/window_manager.dart';
@@ -26,7 +27,7 @@ void main() async {
       runApp(MyApp());
       doWhenWindowReady(() {
         final win = appWindow;
-        const initialSize = Size(650, 250);
+        const initialSize = Size(650, 300);
         win.minSize = Size(650, 150);
         win.size = initialSize;
         win.alignment = Alignment.center;
@@ -84,6 +85,7 @@ class _RightSideState extends State<RightSide> {
   late PlayerController playerController;
   final clientidController = TextEditingController(text: LocalStorage.getInstance().get("clientId") == null ? "" : LocalStorage.getInstance().get("clientId") as String);
   final clientsecretController = TextEditingController(text: LocalStorage.getInstance().get("clientSecret") == null ? "" :  LocalStorage.getInstance().get("clientSecret") as String);
+  final spDcController = TextEditingController(text: LocalStorage.getInstance().get("sp_dc") == null ? "" :  LocalStorage.getInstance().get("sp_dc") as String);
 
   var alwaysOnTop = false;
 
@@ -105,7 +107,6 @@ class _RightSideState extends State<RightSide> {
           title: "",
           content: "Please Enter Your SpotifyApi Client ID and Secret.",
           sureText: "Confirm");
-      // _login();
     });
   }
 
@@ -120,20 +121,27 @@ class _RightSideState extends State<RightSide> {
         return AlertDialog(
           content: Column(
             children: [
-              TextField(
+              TextFormField(
                 controller: clientidController,
                 autofocus: true,
                 decoration: const InputDecoration(
                   labelText: 'Client ID',
                 ),
               ),
-              TextField(
+              TextFormField(
                 controller: clientsecretController,
                 autofocus: true,
                 decoration: const InputDecoration(
                   labelText: 'Client Secret',
                 ),
               ),
+              TextFormField(
+                controller: spDcController,
+                autofocus: true,
+                decoration: const InputDecoration(
+                  labelText: 'sp_dc',
+                ),
+              )
             ],
           ),
           actions: <Widget>[
@@ -142,8 +150,10 @@ class _RightSideState extends State<RightSide> {
               onPressed: () {
                 Global.clientId = clientidController.text;
                 Global.clientSecret = clientsecretController.text;
+                Global.sp_dc = spDcController.text;
                 LocalStorage.getInstance().setString("clientId", clientidController.text);
                 LocalStorage.getInstance().setString("clientSecret", clientsecretController.text);
+                LocalStorage.getInstance().setString("sp_dc", spDcController.text);
                 _login();
                 Navigator.of(context).pop("确定");
               },
@@ -184,6 +194,7 @@ class _RightSideState extends State<RightSide> {
   void _login() async {
     await LoginDao.login();
     await LoginDao.getToken();
+    await LyricsTokenDao.getToken();
     _timer = Timer.periodic(Duration(milliseconds: 1000), (timer) async {
       try {
         await PlayerDao.getCurrentTrack();

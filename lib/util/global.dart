@@ -7,6 +7,7 @@ import 'package:spotify_desk_lyric/model/token_model.dart';
 
 import '../model/current_player_model.dart';
 import '../model/lyrics_model.dart';
+import '../model/lyrics_token_model.dart';
 import 'local_storage.dart';
 
 class Global {
@@ -82,6 +83,8 @@ class Global {
 
   static late TokenModel tokenInstance;
 
+  static late LyricsTokenModel lyricsTokenModel;
+
   static late CurrentPlayerModel currentPlayerModel;
 
   static LyricsModel? currentLyricsModel;
@@ -89,4 +92,6 @@ class Global {
   static late String clientId;
 
   static late String clientSecret;
+
+  static late String sp_dc;
 }

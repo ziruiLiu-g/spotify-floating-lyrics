@@ -16,16 +16,21 @@ class LyricsDao {
   static final _lyricsController = Get.find<LyricsController>();
 
   static getLyric(String trackId) async {
-    BaseRequest request;
+    SpotifyHeroKuAppRequest request;
     request = SpotifyHeroKuAppRequest();
+    request.trackId = trackId;
     
-    request.add("trackid", trackId);
+    request.add("format", "json");
+    request.add("market", "from_token");
 
     try {
       var result = await HiNet.getInstace().fire(request);
-      var lines = result['lines'] as List;
+      _logger.d(result);
+      var lines = result['lyrics']['lines'] as List;
       var lyricsMap = {};
 
+
+      _logger.d(lines);
       for (var line in lines) {
         lyricsMap[int.parse(line['startTimeMs'])] = line['words'];
       }

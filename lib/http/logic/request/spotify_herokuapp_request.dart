@@ -4,17 +4,15 @@ import '../../../util/global.dart';
 import 'base_request.dart';
 
 class SpotifyHeroKuAppRequest extends BaseRequest {
+  var trackId = "";
+
   SpotifyHeroKuAppRequest() {
-    options = Options(
-        responseType: ResponseType.json,
-        headers: {
-        'user-agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) ' +
-        'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36',
-        "Keep-Alive": "timeout=8",
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-        }
-    );
+    options = Options(responseType: ResponseType.json, headers: {
+      'user-agent':
+          'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.0.0 Safari/537.36',
+      "App-platform": "WebPlayer",
+      'authorization': 'Bearer ${Global.lyricsTokenModel.accessToken}'
+    });
   }
 
   @override
@@ -24,11 +22,11 @@ class SpotifyHeroKuAppRequest extends BaseRequest {
 
   @override
   String authority() {
-    return 'spotify-lyric-api-984e7b4face0.herokuapp.com';
+    return 'spclient.wg.spotify.com';
   }
 
   @override
   String path() {
-    return "/?";
+    return "/color-lyrics/v2/track/${trackId}?";
   }
 }
